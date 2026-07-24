@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: Telemetron External API (ext-v1) Customer API
+  version: ext-v1
+  description: RESTful API for syncing customer, device, and ownership-mapping data into Telemetron so it can correlate device telemetry with customers for AI-powered hardware support. Faithfully modeled from the published Telemetron API reference at https://docs.telemetron.ai/api-reference — every path, parameter, and response field below is transcribed from the docs; no fields were invented.
+  contact:
+    name: Telemetron Support
+    email: support@telemetron.ai
+    url: https://docs.telemetron.ai
+  x-generated: '2026-07-21'
+  x-method: generated
+  x-source: https://docs.telemetron.ai/api-reference/introduction
+servers:
+- url: https://admin.telemetron.ai/api/ext-v1
+  description: Telemetron External API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Customer
+  description: Create, update, and query customer records.
+paths:
+  /customer/createOrUpdateCustomer:
+    post:
+      operationId: createOrUpdateCustomer
+      tags:
+      - Customer
+      summary: Create or update a customer
+      description: Creates or updates customer records. Without telemetronCustomerId a new customer is created (409 if the email already exists); with telemetronCustomerId the matching customer is updated. Email is the unique identifier.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Customer's email address (unique identifier).
+                name:
+                  type: string
+                  description: Full name (defaults to email prefix if omitted).
+                phone:
+                  type: string
+                address:
+                  type: string
+                telemetronCustomerId:
+                  type: string
+                  description: Existing customer ID; when present the endpoint updates that customer.
+            examples:
+              create:
+                value:
+                  name: John Doe
+                  email: john.doe@example.com
+                  phone: '+1234567890'
+                  address: 123 Main St, City, State 12345
+      responses:
+        '200':
+          description: Customer created or updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  telemetronCustomerId:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                created:
+                  value:
+                    success: true
+                    telemetronCustomerId: cust_a1b2c3d4e5f6
+                    message: Customer created successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          $ref: '#/components/responses/Conflict'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /customer/queryCustomer:
+    post:
+      operationId: queryCustomer
+      tags:
+      - Customer
+      summary: Query a customer by email
+      description: Retrieves customer information by email address. Response includes assigned devices.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Customer record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /customer/getCustomer/{telemetronCustomerId}:
+    get:
+      operationId: getCustomer
+      tags:
+      - Customer
+      summary: Get a customer by ID
+      description: Retrieves customer information by Telemetron customer ID. Response includes assigned devices.
+      parameters:
+      - name: telemetronCustomerId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The unique customer identifier.
+      responses:
+        '200':
+          description: Customer record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: telemetronCustomerId
+        organizationId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        address:
+          type: string
+        devices:
+          type: array
+          items:
+            type: string
+        orders:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error description.
+  responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Conflict:
+      description: Conflict (duplicate resource).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized (invalid/missing API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request (invalid/missing parameters).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: 'Per-organization API key issued from the Telemetron dashboard (Settings > Integrations). The same key authenticates the REST API and the MCP server (as an Authorization: Bearer token for MCP).'

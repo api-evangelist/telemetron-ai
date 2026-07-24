@@ -1,0 +1,283 @@
+openapi: 3.1.0
+info:
+  title: Telemetron External API (ext-v1) Customer Device Assignment API
+  version: ext-v1
+  description: RESTful API for syncing customer, device, and ownership-mapping data into Telemetron so it can correlate device telemetry with customers for AI-powered hardware support. Faithfully modeled from the published Telemetron API reference at https://docs.telemetron.ai/api-reference — every path, parameter, and response field below is transcribed from the docs; no fields were invented.
+  contact:
+    name: Telemetron Support
+    email: support@telemetron.ai
+    url: https://docs.telemetron.ai
+  x-generated: '2026-07-21'
+  x-method: generated
+  x-source: https://docs.telemetron.ai/api-reference/introduction
+servers:
+- url: https://admin.telemetron.ai/api/ext-v1
+  description: Telemetron External API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Device Assignment
+  description: Map devices to customers for telemetry routing.
+paths:
+  /deviceAssignment/assignDeviceToOwners:
+    post:
+      operationId: assignDeviceToOwners
+      tags:
+      - Device Assignment
+      summary: Assign a device to one or more customers
+      description: Assigns a device to one or more customers, creating the mapping used for telemetry correlation. Auto-creates customers if they don't exist; supports multi-owner (shared/family) devices; optionally auto-creates the device (requires deviceType).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - deviceIdentifier
+              - customerEmails
+              properties:
+                deviceIdentifier:
+                  type: string
+                customerEmails:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+                    format: email
+                autoCreateDevice:
+                  type: boolean
+                  default: false
+                deviceType:
+                  type: string
+                  description: Required when autoCreateDevice is true.
+            examples:
+              assign:
+                value:
+                  deviceIdentifier: SN-12345-ABCDE
+                  customerEmails:
+                  - john.doe@example.com
+                  autoCreateDevice: true
+                  deviceType: Thermostat
+      responses:
+        '200':
+          description: Device assigned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  deviceId:
+                    type: string
+                  deviceWasCreated:
+                    type: boolean
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /deviceAssignment/assignDevicesToOwner:
+    post:
+      operationId: assignDevicesToOwner
+      tags:
+      - Device Assignment
+      summary: Assign multiple devices to a single customer
+      description: Bulk variant that assigns multiple devices to one customer in a single call. Auto-creates the customer if needed; optionally auto-creates devices (requires deviceType). Reports which devices were newly assigned, already assigned, or skipped.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - customerEmail
+              - deviceIdentifiers
+              properties:
+                customerEmail:
+                  type: string
+                  format: email
+                deviceIdentifiers:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+                autoCreateDevices:
+                  type: boolean
+                  default: false
+                deviceType:
+                  type: string
+                  description: Required when autoCreateDevices is true.
+      responses:
+        '200':
+          description: Devices assigned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  customerId:
+                    type: string
+                  customerWasCreated:
+                    type: boolean
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /deviceAssignment/unassignDeviceFromOwner:
+    post:
+      operationId: unassignDeviceFromOwner
+      tags:
+      - Device Assignment
+      summary: Unassign a device from a customer
+      description: Removes the device-to-customer assignment. Both records remain; only the association is removed. Telemetry stops routing to that customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - deviceIdentifier
+              - customerEmail
+              properties:
+                deviceIdentifier:
+                  type: string
+                customerEmail:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Device unassigned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  customerId:
+                    type: string
+                  deviceIdentifier:
+                    type: string
+                  devicesRemaining:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /deviceAssignment/unassignDevicesFromOwner:
+    post:
+      operationId: unassignDevicesFromOwner
+      tags:
+      - Device Assignment
+      summary: Unassign multiple devices from a single customer
+      description: Bulk variant removing multiple device-to-customer assignments in one request. Both device and customer records remain; only associations are removed.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - customerEmail
+              - deviceIdentifiers
+              properties:
+                customerEmail:
+                  type: string
+                  format: email
+                deviceIdentifiers:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Devices unassigned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  customerId:
+                    type: string
+                  unassignedDevices:
+                    type: array
+                    items:
+                      type: string
+                  skipped:
+                    type: array
+                    items:
+                      type: string
+                  devicesRemaining:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized (invalid/missing API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request (invalid/missing parameters).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error description.
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: 'Per-organization API key issued from the Telemetron dashboard (Settings > Integrations). The same key authenticates the REST API and the MCP server (as an Authorization: Bearer token for MCP).'

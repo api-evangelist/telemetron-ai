@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: Telemetron External API (ext-v1) Customer Device API
+  version: ext-v1
+  description: RESTful API for syncing customer, device, and ownership-mapping data into Telemetron so it can correlate device telemetry with customers for AI-powered hardware support. Faithfully modeled from the published Telemetron API reference at https://docs.telemetron.ai/api-reference — every path, parameter, and response field below is transcribed from the docs; no fields were invented.
+  contact:
+    name: Telemetron Support
+    email: support@telemetron.ai
+    url: https://docs.telemetron.ai
+  x-generated: '2026-07-21'
+  x-method: generated
+  x-source: https://docs.telemetron.ai/api-reference/introduction
+servers:
+- url: https://admin.telemetron.ai/api/ext-v1
+  description: Telemetron External API (production)
+security:
+- apiKeyAuth: []
+tags:
+- name: Device
+  description: Register and update devices; bulk-update device metadata.
+paths:
+  /device:
+    post:
+      operationId: createOrUpdateDevice
+      tags:
+      - Device
+      summary: Create or update a device
+      description: Creates a new device or updates an existing one by identifier. New devices require both identifier and type; existing devices can be updated by identifier plus any fields to change.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - identifier
+              properties:
+                identifier:
+                  type: string
+                  description: A unique, non-empty device identifier (serial, MAC, etc.).
+                type:
+                  type: string
+                  description: Device type (e.g. sensor, gateway, controller). Required when creating.
+                properties:
+                  type: object
+                  additionalProperties: true
+                  description: Optional metadata object of additional device properties.
+            examples:
+              create:
+                value:
+                  identifier: sensor-001
+                  type: sensor
+                  properties:
+                    location: Building A
+                    firmware: v2.1.0
+                    model: TM-500
+      responses:
+        '200':
+          description: Device created or updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  deviceId:
+                    type: string
+                  identifier:
+                    type: string
+                  type:
+                    type:
+                    - string
+                    - 'null'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /device/bulk-metadata:
+    post:
+      operationId: bulkUpdateDeviceMetadata
+      tags:
+      - Device
+      summary: Bulk-update device metadata
+      description: Full-replacement update of deviceMetadata (properties) for up to 1,000 existing devices in a single request, keyed by device identifier. Does not create devices; unrecognized identifiers are reported as not_found.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - devices
+              properties:
+                devices:
+                  type: object
+                  minProperties: 1
+                  maxProperties: 1000
+                  additionalProperties:
+                    type: object
+                    additionalProperties: true
+                  description: Map of device identifier to its new metadata object (full replacement).
+      responses:
+        '200':
+          description: Bulk update result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  updated:
+                    type: number
+                  notFound:
+                    type: number
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        identifier:
+                          type: string
+                        status:
+                          type: string
+                          enum:
+                          - updated
+                          - not_found
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error description.
+  responses:
+    BadRequest:
+      description: Bad request (invalid/missing parameters).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized (invalid/missing API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: 'Per-organization API key issued from the Telemetron dashboard (Settings > Integrations). The same key authenticates the REST API and the MCP server (as an Authorization: Bearer token for MCP).'
