@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.telemetron.ai/api-reference/introduction
+description: >-
+  Versioning and lifecycle posture for the Telemetron External API, from the
+  public docs. The API is versioned by URI path segment (ext-v1). As an early
+  YC F25 company, Telemetron does not yet publish a formal deprecation policy,
+  SLA, or status page; those are recorded as absent rather than fabricated.
+versioning:
+  scheme: uri-path
+  current: ext-v1
+  mechanism: Version segment in the base path (/api/ext-v1).
+  docs: https://docs.telemetron.ai/api-reference/introduction
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: No deprecation policy or RFC 8594 Sunset/Deprecation header support is documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+deprecated_operations: []

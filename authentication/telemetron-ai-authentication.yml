@@ -1,0 +1,35 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/telemetron-ai-ext-v1-openapi.yml
+docs: https://docs.telemetron.ai/integrations/developer/api-keys
+description: >-
+  Telemetron authenticates every External API request with a single
+  per-organization API key. For the REST API the key is sent in the x-api-key
+  header; the same key authenticates the hosted MCP server, where it is sent as
+  an Authorization: Bearer token. There is no OAuth, OIDC, or per-scope model —
+  the key grants the organization's full API surface. Keys are issued and
+  rotated from the dashboard (Settings > Integrations); regenerating invalidates
+  the prior key immediately.
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+schemes:
+  - name: apiKeyAuth
+    type: apiKey
+    in: header
+    key_name: x-api-key
+    scope: organization-wide
+    sources: [openapi/telemetron-ai-ext-v1-openapi.yml]
+    docs: https://docs.telemetron.ai/api-reference/introduction
+  - name: mcpBearer
+    type: http
+    scheme: bearer
+    detail: >-
+      Same organization API key, presented as "Authorization: Bearer <API_KEY>"
+      to the MCP server at https://admin.telemetron.ai/api/mcp.
+    sources: [https://docs.telemetron.ai/integrations/developer/mcp]
+key_management:
+  issuance: Dashboard > Settings > Integrations > Developer section
+  rotation: Regenerate Key (immediately invalidates the previous key)
+  guidance: Never expose in client-side code or version control; store in env vars or a secrets manager.

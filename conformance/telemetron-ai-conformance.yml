@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/telemetron-ai-ext-v1-openapi.yml
+description: >-
+  Cross-cutting standards conformance for the Telemetron External API, derived
+  from the OpenAPI and documented conventions. Telemetron is an API-key-auth
+  JSON sync API with a custom (non-RFC-9457) error envelope; it does not
+  implement OAuth/OIDC, FHIR, FAPI, SCIM, OData, or a standard pagination model.
+standards:
+  - id: openapi-3
+    conforms: true
+    evidence: A faithful OpenAPI 3.1 description is maintained at openapi/telemetron-ai-ext-v1-openapi.yml (generated from the published docs).
+  - id: rest-json
+    conforms: true
+    evidence: JSON request/response over HTTPS with standard HTTP status codes.
+  - id: apikey-auth
+    conforms: true
+    evidence: x-api-key header securityScheme (apiKey in header).
+  - id: oauth2
+    conforms: false
+  - id: openid-connect
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: 'Error envelope is a flat {"error": string} object, not application/problem+json.'
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: No /.well-known/security.txt published (probed 2026-07-21).
+  - id: pagination
+    conforms: false
+    evidence: No paginated list endpoints in ext-v1.
+  - id: idempotency-key
+    conforms: false
+    evidence: No Idempotency-Key header; writes are natural upserts keyed on identifier.

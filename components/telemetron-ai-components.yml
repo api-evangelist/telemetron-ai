@@ -1,0 +1,17 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.telemetron.ai/integrations/communication/widget
+description: >-
+  Client-side / embeddable surfaces Telemetron publishes. The primary one is an
+  AI-powered chatbot widget embedded on a customer's website for self-service
+  support. This is distinct from server-side SDKs (Telemetron ships no
+  first-party client library at this time).
+components:
+  - family: Support Widget
+    name: Telemetron Chatbot Widget
+    kind: embedded-web-widget
+    description: >-
+      An AI-powered chatbot widget embedded on your website for customer
+      self-service; connects conversations into the Telemetron case/agent
+      pipeline.
+    docs: https://docs.telemetron.ai/integrations/communication/widget

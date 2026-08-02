@@ -1,22 +1,148 @@
 aid: telemetron-ai
-name: Telemetron Ai
-description: Telemetron Ai is a company surfaced as a portfolio company of y-combinator and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/telemetron-ai.png
+name: Telemetron
+description: >-
+  Telemetron is an AI-powered customer support platform for hardware companies,
+  backed by Y Combinator. It connects to IoT devices in real time, correlates
+  device telemetry with customer records, diagnoses issues with AI, and
+  resolves support tickets automatically. Its External API (ext-v1) lets
+  hardware companies sync customers, devices, and ownership mappings into the
+  platform, and an official hosted MCP server exposes org-scoped support tools
+  (case lookup, customer search, device queries) to AI agents.
 url: https://raw.githubusercontent.com/api-evangelist/telemetron-ai/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - y-combinator
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profile
+x-tier-reason: enriched
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Artificial Intelligence
+- Customer Support
+- Internet of Things
+- Hardware
+- Telemetry
+- Support Tickets
+- MCP
+apis:
+- aid: telemetron-ai:telemetron-ai-customer-api
+  name: Telemetron Customer API
+  description: Create, update, and query customer records.
+  humanURL: https://docs.telemetron.ai/api-reference/introduction
+  baseURL: https://admin.telemetron.ai/api/ext-v1
+  tags:
+  - Customer
+  properties:
+  - type: OpenAPI
+    url: openapi/telemetron-ai-customer-api-openapi.yml
+  - type: Documentation
+    url: https://docs.telemetron.ai/api-reference/introduction
+- aid: telemetron-ai:telemetron-ai-device-api
+  name: Telemetron Device API
+  description: Register and update devices; bulk-update device metadata.
+  humanURL: https://docs.telemetron.ai/api-reference/introduction
+  baseURL: https://admin.telemetron.ai/api/ext-v1
+  tags:
+  - Device
+  properties:
+  - type: OpenAPI
+    url: openapi/telemetron-ai-device-api-openapi.yml
+  - type: Documentation
+    url: https://docs.telemetron.ai/api-reference/introduction
+- aid: telemetron-ai:telemetron-ai-device-assignment-api
+  name: Telemetron Device Assignment API
+  description: Map devices to customers for telemetry routing.
+  humanURL: https://docs.telemetron.ai/api-reference/introduction
+  baseURL: https://admin.telemetron.ai/api/ext-v1
+  tags:
+  - Device Assignment
+  properties:
+  - type: OpenAPI
+    url: openapi/telemetron-ai-device-assignment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.telemetron.ai/api-reference/introduction
+- aid: telemetron-ai:telemetron-ai-ticket-api
+  name: Telemetron Ticket API
+  description: Create support tickets.
+  humanURL: https://docs.telemetron.ai/api-reference/introduction
+  baseURL: https://admin.telemetron.ai/api/ext-v1
+  tags:
+  - Ticket
+  properties:
+  - type: OpenAPI
+    url: openapi/telemetron-ai-ticket-api-openapi.yml
+  - type: Documentation
+    url: https://docs.telemetron.ai/api-reference/introduction
+common:
+- type: AgenticAccess
+  url: agentic-access/telemetron-ai-agentic-access.yml
+- type: DomainSecurity
+  url: security/telemetron-ai-domain-security.yml
+- type: MCPServer
+  url: mcp/telemetron-ai-mcp.yml
+- type: LLMsTxt
+  url: llms/telemetron-ai-llms.txt
+- type: WellKnown
+  url: well-known/telemetron-ai-well-known.yml
+- type: Authentication
+  url: authentication/telemetron-ai-authentication.yml
+- type: Conventions
+  url: conventions/telemetron-ai-conventions.yml
+- type: Conformance
+  url: conformance/telemetron-ai-conformance.yml
+- type: ErrorCatalog
+  url: errors/telemetron-ai-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/telemetron-ai-lifecycle.yml
+- type: Components
+  url: components/telemetron-ai-components.yml
+- type: DataModel
+  url: data-model/telemetron-ai-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://docs.telemetron.ai/
+- type: Documentation
+  url: https://docs.telemetron.ai/
+- type: APIReference
+  url: https://docs.telemetron.ai/api-reference/introduction
+- type: GettingStarted
+  url: https://docs.telemetron.ai/api-reference/getting-started
+- type: Support
+  url: mailto:support@telemetron.ai
+- type: Blog
+  url: https://www.telemetron.ai/blog
+- type: Login
+  url: https://admin.telemetron.ai/
+- type: TermsOfService
+  url: https://www.telemetron.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.telemetron.ai/privacy-policy
+- type: Website
+  url: https://www.telemetron.ai/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

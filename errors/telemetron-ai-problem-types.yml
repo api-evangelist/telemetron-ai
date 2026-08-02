@@ -1,0 +1,42 @@
+generated: '2026-07-21'
+method: searched
+format: custom-json
+source: https://docs.telemetron.ai/api-reference/introduction
+envelope:
+  media_type: application/json
+  shape: '{ "error": "<human-readable description>" }'
+  note: >-
+    Telemetron does NOT use RFC 9457 problem+json. Errors are a flat JSON object
+    with a single "error" string; success responses carry "success": true plus
+    operation-specific fields. Semantics are conveyed by HTTP status code.
+description: >-
+  API-level error catalog derived from the documented HTTP status codes and the
+  error envelope in the Telemetron API reference. Status meanings are
+  transcribed verbatim from the docs' HTTP Status Codes table.
+problems:
+  - status: 400
+    title: Bad request
+    meaning: Invalid or missing parameters.
+    remediation: Check required fields and formats (e.g. valid email, non-empty identifier, deviceType when autoCreateDevice is true).
+  - status: 401
+    title: Unauthorized
+    meaning: Invalid or missing API key.
+    remediation: Send a valid key in the x-api-key header; verify the key has not been regenerated in Settings > Integrations.
+  - status: 404
+    title: Resource not found
+    meaning: The referenced customer or device does not exist.
+    remediation: Verify the telemetronCustomerId / email / device identifier exists in your organization.
+    source_operations:
+      - openapi/telemetron-ai-ext-v1-openapi.yml#getCustomer
+      - openapi/telemetron-ai-ext-v1-openapi.yml#queryCustomer
+      - openapi/telemetron-ai-ext-v1-openapi.yml#unassignDeviceFromOwner
+  - status: 409
+    title: Conflict (duplicate resource)
+    meaning: A customer with the given email already exists (create without telemetronCustomerId).
+    remediation: Pass the existing telemetronCustomerId to update instead of create.
+    source_operations:
+      - openapi/telemetron-ai-ext-v1-openapi.yml#createOrUpdateCustomer
+  - status: 500
+    title: Server error
+    meaning: Unexpected server-side failure.
+    remediation: Retry with backoff; contact support@telemetron.ai if it persists.

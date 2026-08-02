@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/telemetron-ai-ext-v1-openapi.yml
+skills:
+  - file: telemetron-ai-sync-customer-device-fleet.md
+    name: Sync customers and devices into Telemetron
+    api: openapi/telemetron-ai-ext-v1-openapi.yml
+    operations: [createOrUpdateCustomer, createOrUpdateDevice, assignDeviceToOwners, assignDevicesToOwner]
+  - file: telemetron-ai-create-support-ticket.md
+    name: Create a support ticket for a customer
+    api: openapi/telemetron-ai-ext-v1-openapi.yml
+    operations: [queryCustomer, getCustomer, createTicket]
+  - file: telemetron-ai-manage-device-metadata.md
+    name: Manage device metadata at fleet scale
+    api: openapi/telemetron-ai-ext-v1-openapi.yml
+    operations: [createOrUpdateDevice, bulkUpdateDeviceMetadata, unassignDeviceFromOwner, unassignDevicesFromOwner]

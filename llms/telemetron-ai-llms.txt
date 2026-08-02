@@ -1,0 +1,47 @@
+# Telemetron
+
+## Docs
+
+- [Create or Update Customer](https://docs.telemetron.ai/api-reference/customer/create-or-update.md): Create or update customer records
+- [Get Customer by ID](https://docs.telemetron.ai/api-reference/customer/get-by-id.md): Retrieve customer by ID
+- [Query Customer by Email](https://docs.telemetron.ai/api-reference/customer/query.md): Look up customer by email
+- [Assign Device to Owners](https://docs.telemetron.ai/api-reference/device/assign-device.md): Create device-to-customer mappings
+- [Assign Devices to Owner](https://docs.telemetron.ai/api-reference/device/assign-devices-to-owner.md): Assign multiple devices to a single customer
+- [Bulk Update Device Metadata](https://docs.telemetron.ai/api-reference/device/bulk-metadata.md): Bulk-update the deviceMetadata (properties) for multiple devices in a single request, identified by their serial/identifier
+- [Create or Update Device](https://docs.telemetron.ai/api-reference/device/create-or-update-device.md): Register a new device or update an existing device by identifier
+- [Unassign Device from Owner](https://docs.telemetron.ai/api-reference/device/unassign-device.md): Remove device-to-customer assignment
+- [Unassign Devices from Owner](https://docs.telemetron.ai/api-reference/device/unassign-devices-from-owner.md): Unassign multiple devices from a single customer
+- [API Getting Started](https://docs.telemetron.ai/api-reference/getting-started.md): Sync devices, customers, and ownership mappings into Telemetron
+- [API Reference](https://docs.telemetron.ai/api-reference/introduction.md): RESTful API for syncing customer and device data with Telemetron
+- [Create Ticket](https://docs.telemetron.ai/api-reference/ticket/create-ticket.md): Create a new support ticket
+- [AI Agent & Tools](https://docs.telemetron.ai/data/ai-agent.md): How Telemetron's AI agent works and what tools it has access to
+- [Categories & Routing Rules](https://docs.telemetron.ai/data/categories-and-routing.md): Organize cases, customers, and devices with categories and auto-route cases to the right team member
+- [Device Data Ingestion](https://docs.telemetron.ai/data/device-data-ingestion.md): How telemetry data flows into Telemetron from IoT devices and external sources
+- [How Cases Work](https://docs.telemetron.ai/data/how-cases-work.md): Understand the case lifecycle, creation sources, statuses, and assignment
+- [Merging Cases](https://docs.telemetron.ai/data/merging-cases.md): Combine related cases into one to keep conversations organized and avoid duplicate work
+- [Messaging Channel Nuances](https://docs.telemetron.ai/data/messaging-channels.md): Limitations and behavior differences across each messaging channel
+- [Telemetron Support](https://docs.telemetron.ai/data/support-platform.md): How Telemetron works as a support platform for hardware companies
+- [Getting Started](https://docs.telemetron.ai/index.md): Start with the right Telemetron docs for platform workflows, agents, or API integration
+- [Gmail / Email](https://docs.telemetron.ai/integrations/communication/gmail.md): Connect Gmail for AI-powered email processing and case management
+- [Meta (Instagram & Messenger)](https://docs.telemetron.ai/integrations/communication/meta.md): Connect Instagram and Facebook Messenger to receive and respond to customer messages
+- [Phone (Voice / Calls)](https://docs.telemetron.ai/integrations/communication/phone.md): Manage phone numbers, inbound call routing, and voice settings
+- [Slack](https://docs.telemetron.ai/integrations/communication/slack.md): Connect Slack for AI-powered support workflows and notifications
+- [Widget / Chatbot](https://docs.telemetron.ai/integrations/communication/widget.md): Embed an AI-powered chatbot widget on your website for customer self-service
+- [API Keys](https://docs.telemetron.ai/integrations/developer/api-keys.md): Generate and manage API keys for authenticating with the Telemetron API
+- [Custom API Tools](https://docs.telemetron.ai/integrations/developer/custom-api-tools.md): Create custom API tool connections for your AI assistant
+- [MCP (Claude Code)](https://docs.telemetron.ai/integrations/developer/mcp.md): Connect Telemetron as an MCP server for Claude Code
+- [PostgreSQL](https://docs.telemetron.ai/integrations/developer/postgres.md): Connect an external PostgreSQL database for AI-powered read-only queries
+- [EasyPost](https://docs.telemetron.ai/integrations/ecommerce/easypost.md): Create shipping labels, compare carrier rates, and track shipments
+- [Odoo](https://docs.telemetron.ai/integrations/ecommerce/odoo.md): Connect your Odoo ERP for inventory tracking, serial numbers, and order data
+- [Shopify](https://docs.telemetron.ai/integrations/ecommerce/shopify.md): Connect your Shopify store to sync orders, products, and customer data
+- [Stripe](https://docs.telemetron.ai/integrations/ecommerce/stripe.md): Connect Stripe to enable payment lookup, refunds, and payment links
+- [Zendesk](https://docs.telemetron.ai/integrations/ecommerce/zendesk.md): Connect Zendesk to create tickets from cases and use the sidebar app
+- [Integrations Overview](https://docs.telemetron.ai/integrations/overview.md): Connect your tools and services to Telemetron for unified AI-powered support
+- [AWS IoT Core](https://docs.telemetron.ai/integrations/telemetry/aws-iot.md): Forward device telemetry from AWS IoT Core to Telemetron
+- [AWS S3 Bucket](https://docs.telemetron.ai/integrations/telemetry/aws-s3.md): Backfill historical telemetry data from compressed CSV files in S3
+- [Memfault](https://docs.telemetron.ai/integrations/telemetry/memfault.md): Connect Memfault for device crash analytics, firmware monitoring, and fleet health
+
+## Optional
+
+- [Dashboard](https://admin.telemetron.ai)
+- [Support](mailto:support@telemetron.ai)

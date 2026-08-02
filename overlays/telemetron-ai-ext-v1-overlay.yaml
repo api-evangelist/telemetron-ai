@@ -1,0 +1,20 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Telemetron External API
+  version: 1.0.0
+extends: openapi/telemetron-ai-ext-v1-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-21'
+      x-apievangelist-source: https://docs.telemetron.ai/api-reference
+      x-apievangelist-notes: >-
+        Spec generated faithfully from Telemetron's published Mintlify docs;
+        Telemetron does not yet publish a machine-readable OpenAPI. Auth is a
+        single organization-wide x-api-key; the same key doubles as the MCP
+        Bearer token.
+  - target: $.info
+    update:
+      x-mcp-server: https://admin.telemetron.ai/api/mcp
+      x-error-envelope: '{ "error": string }'
+      x-versioning: uri-path (ext-v1)

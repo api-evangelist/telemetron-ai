@@ -1,0 +1,64 @@
+generated: '2026-07-21'
+method: searched
+source: https://docs.telemetron.ai/api-reference/introduction
+description: >-
+  Cross-cutting request/response conventions for the Telemetron External API
+  (ext-v1) as documented in the API reference. Telemetron is an upsert-oriented
+  sync API: most write operations are create-or-update keyed on a natural
+  identifier (customer email, device identifier), which makes retries naturally
+  safe even though there is no dedicated idempotency-key header. Captured from
+  the docs; derived shapes cite the OpenAPI.
+base_url: https://admin.telemetron.ai/api/ext-v1
+api_style: REST over HTTPS, JSON request and response bodies (Content-Type application/json)
+
+authentication:
+  scheme: API key in the x-api-key header (organization-wide); Bearer token for MCP
+  detail: authentication/telemetron-ai-authentication.yml
+  docs: https://docs.telemetron.ai/api-reference/introduction
+
+idempotency:
+  supported: false
+  idempotency_key_header: false
+  natural_idempotency: >-
+    No Idempotency-Key header is documented. However the primary write
+    operations are upserts keyed on a natural identifier — customer email
+    (createOrUpdateCustomer), device identifier (createOrUpdateDevice),
+    device+customer pair (assignDeviceToOwners) — so repeating the same request
+    converges on the same state rather than duplicating records. bulk-metadata
+    is a full-replacement (not merge) operation.
+  docs: https://docs.telemetron.ai/api-reference/introduction
+
+pagination:
+  supported: false
+  detail: >-
+    No list endpoints with pagination are documented in ext-v1; reads are single
+    lookups (queryCustomer by email, getCustomer by id). Bulk writes cap at
+    1,000 devices per request.
+
+metadata:
+  supported: true
+  mechanism: >-
+    Free-form properties object on devices (createOrUpdateDevice, bulk-metadata)
+    and a metadata object returned on customer records.
+  detail: bulk-metadata performs a FULL REPLACEMENT of deviceMetadata, not a merge.
+
+request_tracing:
+  request_id_header: null
+  detail: No request-id / correlation header is documented.
+
+versioning:
+  scheme: uri-path
+  current: ext-v1
+  mechanism: Version segment in the base path (/api/ext-v1).
+  detail: lifecycle/telemetron-ai-lifecycle.yml
+
+error_envelope:
+  media_type: application/json
+  shape: '{ "error": "<description>" }'
+  success_shape: '{ "success": true, "message": "...", ...operation fields }'
+  detail: errors/telemetron-ai-problem-types.yml
+  status_codes: [200, 400, 401, 404, 409, 500]
+
+rate_limiting:
+  documented: false
+  detail: No rate-limit headers or quotas are documented in the public API reference.

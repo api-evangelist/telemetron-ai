@@ -1,0 +1,20 @@
+{
+  "provider": "telemetron-ai",
+  "sources": [
+    "telemetron-ai-customer-api-openapi.yml",
+    "telemetron-ai-device-api-openapi.yml",
+    "telemetron-ai-device-assignment-api-openapi.yml",
+    "telemetron-ai-ticket-api-openapi.yml"
+  ],
+  "outputs": [
+    "telemetron-ai-customer-api-openapi.yml",
+    "telemetron-ai-device-api-openapi.yml",
+    "telemetron-ai-device-assignment-api-openapi.yml",
+    "telemetron-ai-ticket-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

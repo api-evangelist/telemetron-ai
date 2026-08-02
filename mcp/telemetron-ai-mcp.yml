@@ -1,0 +1,34 @@
+generated: '2026-07-21'
+method: searched
+status: published
+source: https://docs.telemetron.ai/integrations/developer/mcp
+description: >-
+  Telemetron operates an official hosted MCP server at
+  https://admin.telemetron.ai/api/mcp over HTTP transport, authenticated with
+  the organization's API key sent as an Authorization: Bearer token. The docs
+  position it for Claude Code (claude mcp add). The server dynamically exposes
+  whatever support tools are configured in the caller's Telemetron organization
+  (case lookup, customer search, device queries, plus any custom API tools), so
+  the tool list is org-scoped rather than a fixed manifest. Captured verbatim
+  from the Telemetron MCP documentation.
+server:
+  name: telemetron
+  transport: http
+  url: https://admin.telemetron.ai/api/mcp
+  auth: bearer
+  auth_header: 'Authorization: Bearer <API_KEY>'
+install: >-
+  claude mcp add telemetron --transport http https://admin.telemetron.ai/api/mcp
+  --header "Authorization: Bearer YOUR_API_KEY"
+tools:
+  - name: case_lookup
+    description: Query support cases in the connected Telemetron organization (dynamic; org-configured).
+  - name: customer_search
+    description: Look up customer information (dynamic; org-configured).
+  - name: device_query
+    description: Check device status / query device data (dynamic; org-configured).
+notes: >-
+  Tool names above are illustrative of the categories the docs enumerate ("case
+  lookup, customer search, device queries, and any custom API tools"). The
+  actual exposed tool set is determined per organization at connect time and is
+  not published as a fixed list.

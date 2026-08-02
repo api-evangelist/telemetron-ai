@@ -1,0 +1,53 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/telemetron-ai-ext-v1-openapi.yml
+docs: https://docs.telemetron.ai/api-reference/introduction
+description: >-
+  Entity-relationship model derived from the Telemetron External API operations
+  and the Customer schema. The domain centers on Customers who own Devices via a
+  many-to-many DeviceAssignment mapping (shared/family devices are supported),
+  with Tickets and Orders attached to Customers and telemetry ingested per
+  Device.
+entities:
+  - name: Customer
+    id_field: telemetronCustomerId (id)
+    natural_key: email
+    fields: [id, organizationId, name, email, phone, address, devices, orders, metadata]
+    source_schema: openapi/telemetron-ai-ext-v1-openapi.yml#/components/schemas/Customer
+  - name: Device
+    id_field: deviceId
+    natural_key: identifier
+    fields: [deviceId, identifier, type, properties]
+  - name: DeviceAssignment
+    detail: Join entity mapping a Device to one or more Customers (telemetry routing).
+    fields: [deviceIdentifier, customerEmails]
+  - name: Ticket
+    fields: [title, description, priority, category, customerId/customerEmail, messages]
+  - name: Order
+    detail: Referenced as order identifiers on a Customer; not writable via ext-v1.
+    fields: [orders]
+  - name: Organization
+    detail: Tenant scope; every entity is scoped to the API key's organization.
+    fields: [organizationId]
+relationships:
+  - from: Customer
+    to: Organization
+    type: belongs_to
+    via: organizationId
+  - from: Device
+    to: Customer
+    type: has_many
+    via: DeviceAssignment
+    detail: A device can be assigned to multiple customer owners (shared/family).
+  - from: Customer
+    to: Device
+    type: has_many
+    via: devices
+  - from: Ticket
+    to: Customer
+    type: belongs_to
+    via: customerId / customerEmail
+  - from: Order
+    to: Customer
+    type: belongs_to
+    via: orders

@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for every Telemetron
+  host (API host admin.telemetron.ai, marketing site www.telemetron.ai, docs
+  host docs.telemetron.ai). Status is the HTTP code observed at fetch time on
+  2026-07-21. No discovery documents are published; every probed path returned
+  404, so nothing was saved. Absence is valid recorded data.
+hosts:
+  - host: https://admin.telemetron.ai
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+  - host: https://www.telemetron.ai
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
+  - host: https://docs.telemetron.ai
+    documents:
+      - { path: /.well-known/security.txt, status: 404 }
+      - { path: /.well-known/openid-configuration, status: 404 }
+      - { path: /.well-known/oauth-authorization-server, status: 404 }
+      - { path: /.well-known/api-catalog, status: 404 }
+      - { path: /.well-known/ai-plugin.json, status: 404 }
