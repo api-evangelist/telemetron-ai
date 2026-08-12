@@ -90,6 +90,8 @@ apis:
   - type: Documentation
     url: https://docs.telemetron.ai/api-reference/introduction
 common:
+- type: Overlay
+  url: overlays/telemetron-ai-ext-v1-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/telemetron-ai-agentic-access.yml
 - type: DomainSecurity
