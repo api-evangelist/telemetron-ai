@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Telemetron External API (ext-v1) Customer Device API",
+    "version": "ext-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a device",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/device",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new device or updates an existing one by identifier. New devices require both identifier and type; existing devices can be updated by identifier plus any fields to change."
+        },
+        {
+          "info": {
+            "name": "Bulk-update device metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/device/bulk-metadata",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Full-replacement update of deviceMetadata (properties) for up to 1,000 existing devices in a single request, keyed by device identifier. Does not create devices; unrecognized identifiers are reported as not_found."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

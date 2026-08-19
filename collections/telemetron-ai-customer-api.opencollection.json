@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Telemetron External API (ext-v1) Customer API",
+    "version": "ext-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/customer/createOrUpdateCustomer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates customer records. Without telemetronCustomerId a new customer is created (409 if the email already exists); with telemetronCustomerId the matching customer is updated. Email is the unique identifier."
+        },
+        {
+          "info": {
+            "name": "Query a customer by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/customer/queryCustomer",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves customer information by email address. Response includes assigned devices."
+        },
+        {
+          "info": {
+            "name": "Get a customer by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://admin.telemetron.ai/api/ext-v1/customer/getCustomer/:telemetronCustomerId",
+            "params": [
+              {
+                "name": "telemetronCustomerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique customer identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves customer information by Telemetron customer ID. Response includes assigned devices."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

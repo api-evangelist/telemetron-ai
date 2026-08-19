@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Telemetron External API (ext-v1) Customer Device Assignment API",
+    "version": "ext-v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-key",
+      "value": "{{x-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device Assignment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Assign a device to one or more customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/deviceAssignment/assignDeviceToOwners",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns a device to one or more customers, creating the mapping used for telemetry correlation. Auto-creates customers if they don't exist; supports multi-owner (shared/family) devices; optionally auto-creates the device (requires deviceType)."
+        },
+        {
+          "info": {
+            "name": "Assign multiple devices to a single customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/deviceAssignment/assignDevicesToOwner",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk variant that assigns multiple devices to one customer in a single call. Auto-creates the customer if needed; optionally auto-creates devices (requires deviceType). Reports which devices were newly assigned, already assigned, or skipped."
+        },
+        {
+          "info": {
+            "name": "Unassign a device from a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/deviceAssignment/unassignDeviceFromOwner",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes the device-to-customer assignment. Both records remain; only the association is removed. Telemetry stops routing to that customer."
+        },
+        {
+          "info": {
+            "name": "Unassign multiple devices from a single customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://admin.telemetron.ai/api/ext-v1/deviceAssignment/unassignDevicesFromOwner",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk variant removing multiple device-to-customer assignments in one request. Both device and customer records remain; only associations are removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
