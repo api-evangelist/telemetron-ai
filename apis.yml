@@ -34,6 +34,15 @@ modified: '2026-07-21'
 tags:
 - Company
 - Artificial Intelligence
+- Customer-Support
+- Internet of Things
+- Hardware
+- Telemetry
+- Support Tickets
+- MCP
+tags_raw:
+- Company
+- Artificial Intelligence
 - Customer Support
 - Internet of Things
 - Hardware
@@ -47,6 +56,8 @@ apis:
   humanURL: https://docs.telemetron.ai/api-reference/introduction
   baseURL: https://admin.telemetron.ai/api/ext-v1
   tags:
+  - Customers
+  tags_raw:
   - Customer
   properties:
   - type: OpenAPI
