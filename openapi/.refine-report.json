@@ -1,10 +1,7 @@
 {
   "provider": "telemetron-ai",
   "sources": [
-    "telemetron-ai-customer-api-openapi.yml",
-    "telemetron-ai-device-api-openapi.yml",
-    "telemetron-ai-device-assignment-api-openapi.yml",
-    "telemetron-ai-ticket-api-openapi.yml"
+    "_ae-authored/telemetron-ai-ext-v1-openapi.yml"
   ],
   "outputs": [
     "telemetron-ai-customer-api-openapi.yml",
@@ -16,11 +13,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "telemetron-ai-customer-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "telemetron-ai-device-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "telemetron-ai-device-assignment-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "telemetron-ai-ticket-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "telemetron-ai-ext-v1-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "telemetron-ai-customer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "telemetron-ai-device-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "telemetron-ai-device-assignment-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "telemetron-ai-ticket-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

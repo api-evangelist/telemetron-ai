@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Telemetron External API (ext-v1) Customer Ticket API
+  title: Telemetron External API (ext-v1) Ticket API
   version: ext-v1
   description: RESTful API for syncing customer, device, and ownership-mapping data into Telemetron so it can correlate device telemetry with customers for AI-powered hardware support. Faithfully modeled from the published Telemetron API reference at https://docs.telemetron.ai/api-reference — every path, parameter, and response field below is transcribed from the docs; no fields were invented.
   contact:
@@ -86,12 +86,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   responses:
-    BadRequest:
-      description: Bad request (invalid/missing parameters).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     ServerError:
       description: Server error.
       content:
@@ -100,6 +94,12 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Unauthorized (invalid/missing API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request (invalid/missing parameters).
       content:
         application/json:
           schema:

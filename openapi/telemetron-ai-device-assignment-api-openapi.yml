@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Telemetron External API (ext-v1) Customer Device Assignment API
+  title: Telemetron External API (ext-v1) Device Assignment API
   version: ext-v1
   description: RESTful API for syncing customer, device, and ownership-mapping data into Telemetron so it can correlate device telemetry with customers for AI-powered hardware support. Faithfully modeled from the published Telemetron API reference at https://docs.telemetron.ai/api-reference — every path, parameter, and response field below is transcribed from the docs; no fields were invented.
   contact:
@@ -250,6 +250,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized (invalid/missing API key).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found.
       content:
@@ -258,12 +264,6 @@ components:
             $ref: '#/components/schemas/Error'
     ServerError:
       description: Server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized (invalid/missing API key).
       content:
         application/json:
           schema:
