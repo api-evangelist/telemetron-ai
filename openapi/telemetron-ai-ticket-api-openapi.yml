@@ -86,8 +86,8 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   responses:
-    ServerError:
-      description: Server error.
+    BadRequest:
+      description: Bad request (invalid/missing parameters).
       content:
         application/json:
           schema:
@@ -98,8 +98,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request (invalid/missing parameters).
+    ServerError:
+      description: Server error.
       content:
         application/json:
           schema:

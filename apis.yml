@@ -47,7 +47,7 @@ modified: '2026-07-21'
 tags:
 - Company
 - Artificial Intelligence
-- Customer-Support
+- Customer Support
 - IoT
 - Hardware
 - Telemetry
@@ -62,6 +62,7 @@ tags_raw:
 - Telemetry
 - Support Tickets
 - MCP
+- Customer-Support
 apis:
 - aid: telemetron-ai:telemetron-ai-customer-api
   name: Telemetron Customer API
