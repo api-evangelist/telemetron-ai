@@ -115,6 +115,9 @@ apis:
   - type: Documentation
     url: https://docs.telemetron.ai/api-reference/introduction
 common:
+- type: CapabilityMap
+  url: capabilities/telemetron-ai-capability-edges.yml
+  name: Telemetron Business Capability Map
 - type: Overlay
   url: overlays/telemetron-ai-ext-v1-overlay.yaml
 - type: AgenticAccess
